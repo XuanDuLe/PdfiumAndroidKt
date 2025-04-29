@@ -23,7 +23,7 @@ android {
     namespace = "du.le.pdfiumandroid"
     compileSdk = 35
 
-    ndkVersion = "28.0.12674087"
+    // ndkVersion = "28.0.12674087"
 
     defaultConfig {
         minSdk = 23
