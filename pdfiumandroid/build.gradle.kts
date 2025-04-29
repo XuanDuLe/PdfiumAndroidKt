@@ -127,8 +127,6 @@ fun getRepositoryPassword(): String =
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            from(components["java"]) // or components["release"] for Android libs
-
             groupId = "com.github.XuanDuLe" // JitPack uses this
             artifactId = "pdfiumandroid"
             version = "0.1"
