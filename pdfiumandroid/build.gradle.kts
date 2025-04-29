@@ -11,7 +11,6 @@ plugins {
     alias(libs.plugins.ktlint)
     alias(libs.plugins.jreleaser)
     `maven-publish`
-    signing
 }
 kotlin {
     compilerOptions {
@@ -21,7 +20,7 @@ kotlin {
 }
 
 android {
-    namespace = "io.legere.pdfiumandroid"
+    namespace = "du.le.pdfiumandroid"
     compileSdk = 35
 
     ndkVersion = "28.0.12674087"
@@ -46,12 +45,6 @@ android {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
-//        maybeCreate("qa")
-//        getByName("qa") {
-//            matchingFallbacks += listOf("release")
-//            isMinifyEnabled = true
-//            signingConfig = signingConfigs.getByName("debug")
-//        }
     }
     externalNativeBuild {
         cmake {
@@ -62,13 +55,6 @@ android {
     compileOptions {
         sourceCompatibility(JavaVersion.VERSION_17)
         targetCompatibility(JavaVersion.VERSION_17)
-    }
-    publishing {
-        singleVariant("release") {
-            // if you don't want sources/javadoc, remove these lines
-            withSourcesJar()
-            withJavadocJar()
-        }
     }
 }
 
@@ -127,6 +113,7 @@ fun getRepositoryPassword(): String =
 publishing {
     publications {
         create<MavenPublication>("maven") {
+            from(components["release"])
             groupId = "com.github.XuanDuLe" // JitPack uses this
             artifactId = "pdfiumandroid"
             version = "0.1"
@@ -134,57 +121,4 @@ publishing {
     }
 }
 
-jreleaser {
-    project {
-        inceptionYear = "2023"
-        author("@johngray1965")
-        description = rootProject.properties["POM_DESCRIPTION"] as String
-        version = rootProject.properties["VERSION_NAME"] as String
-    }
-    gitRootSearch = true
-    signing {
-        active = Active.ALWAYS
-        mode = Signing.Mode.COMMAND
-        armored = true
-        verify = false
-        command {
-            executable = "gpg"
-            keyName = "4BBF8FAB"
-            publicKeyring = "/Users/gray/.gnupg/secring.gpg"
-        }
-    }
-    release {
-        github {
-            skipRelease = true
-        }
-    }
-//    distributions {
-//        create("zip") {
-//            artifacts {
-//                add(
-//                    layout.buildDirectory
-//                        .dir("libs")
-//                        .map {
-//                            it.file("pdfiumandroid.zip")
-//                        }
-//                )
-//            }
-//        }
-//    }
-    deploy {
-        maven {
-            mavenCentral.create("sonatype") {
-                active = Active.ALWAYS
-                verifyPom = false
-                url = "https://central.sonatype.com/api/v1/publisher"
-                stagingRepository(
-                    layout.buildDirectory
-                        .dir("target/staging-deploy")
-                        .get()
-                        .toString(),
-                )
-                username = getRepositoryUsername()
-            }
-        }
-    }
-}
+jreleaser {}
