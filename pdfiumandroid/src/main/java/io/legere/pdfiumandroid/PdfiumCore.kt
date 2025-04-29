@@ -588,8 +588,9 @@ class PdfiumCore(
                 synchronized(lock) {
                     Log.d(TAG, "init in lock")
                     try {
-                        System.loadLibrary("pdfium")
-                        System.loadLibrary("pdfiumandroid")
+                        // System.loadLibrary("pdfium")
+                        // System.loadLibrary("pdfiumandroid")
+                        System.loadLibrary("jniPdfium");
                         isReady.markReady()
                     } catch (e: UnsatisfiedLinkError) {
                         Logger.e(TAG, e, "Native libraries failed to load")
