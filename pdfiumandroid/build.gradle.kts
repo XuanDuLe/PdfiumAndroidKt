@@ -84,6 +84,10 @@ publishing {
             groupId = "com.github.XuanDuLe" // JitPack uses this
             artifactId = "pdfiumandroid"
             version = "0.1"
+            
+            afterEvaluate {
+                from(components["release"])
+            }
         }
     }
 }
