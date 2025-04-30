@@ -589,7 +589,7 @@ class PdfiumCore(
                     Log.d(TAG, "init in lock")
                     try {
                         // System.loadLibrary("pdfium")
-                        // System.loadLibrary("pdfiumandroid")
+                        System.loadLibrary("pdfiumandroid")
                         System.loadLibrary("jniPdfium");
                         isReady.markReady()
                     } catch (e: UnsatisfiedLinkError) {
