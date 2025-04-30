@@ -12,14 +12,6 @@ plugins {
     alias(libs.plugins.jreleaser) apply false
 }
 
-dependencyResolutionManagement {
-    repositories {
-        maven(url = "https://jitpack.io")
-        google()
-        mavenCentral()
-    }
-}
-
 
 // allprojects {
 //    version = findProperty('VERSION_NAME') ?: "1.0.0"
